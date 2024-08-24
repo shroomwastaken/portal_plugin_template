@@ -17,7 +17,7 @@ use crate::utils::strcmp;
 mod utils;
 mod stubs;
 
-type CreateInterfaceFn = extern "thiscall" fn(*const i8, *mut i32) -> *mut c_void;
+type CreateInterfaceFn = extern "C" fn(*const i8, *mut i32) -> *mut c_void;
 
 const VTABLE: [*const c_void; 18] = [
 	load                                as *const c_void,
