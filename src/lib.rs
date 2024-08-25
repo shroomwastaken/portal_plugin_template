@@ -48,10 +48,9 @@ struct RustPlugin {
 const PLUGIN_OBJECT: RustPlugin = RustPlugin { vtable: VTABLE.as_ptr() };
 
 #[no_mangle]
-#[allow(non_snake_case)]
-// this has to not be snake_case since we need source to see and call it
+#[export_name = "CreateInterface"]
 // this also has to be extern C not thiscall (thank you jukspaaaaaaaa)
-unsafe extern "C" fn CreateInterface(name: *const i8, ret: *mut i32) -> *mut c_void {
+unsafe extern "C" fn create_interface(name: *const i8, ret: *mut i32) -> *mut c_void {
 	// using version 002 since we want to load this in portal 1
 	if strcmp(name, "ISERVERPLUGINCALLBACKS002") {
 		if !ret.is_null() { *ret = 0; }
